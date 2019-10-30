@@ -6,5 +6,5 @@ class Arbol:
         self.cantHojas = pCantHojas;
 
     def __repr__(self):
-        return '{}: {} {} {}'.format(self.__class__.__name__,
+        return '{}: Ubicacion:{} Duracion:{} {}'.format(self.__class__.__name__,
                                   self.ubicacion, self.duracionSubir,self.cantHojas)
