@@ -3,38 +3,45 @@ import multiprocessing
 import random
 from time import time
 
-
 from Arbol import *
 from Rango import *
+from Hormigas import *
+
+velocidad = 1
 
 
-def voraz(tiempo, arboles):
-    cantTotalHojas = 0
-    cantHormigas = 0
-    duracion = len(arboles)
-    for arbol in arboles:
-        seg = 0
-        hojasRecogidas = 0
-        while seg < tiempo:
-            cantHojas = math.floor((tiempo - seg) / (2 * (arbol.ubicacion + arbol.duracionSubir)))
-            if arbol.cantHojas > 0 and cantHojas <= arbol.cantHojas:
-                arbol.cantHojas -= cantHojas
-                hojasRecogidas += cantHojas
-                seg += duracion
-            else:
-                duracion -= 1
-                break
-        print("_____________________________________")
-        print("Hojas Recogidas", hojasRecogidas)
-        cantTotalHojas += hojasRecogidas
-        hormigasxIteracion = math.ceil(hojasRecogidas / 2)
-        print("Hormigas por Arbol:", hormigasxIteracion)
-        cantHormigas += hormigasxIteracion
-        print("Total Hormigas: ", cantHormigas)
-        print("_____________________________________")
-    return cantHormigas,cantTotalHojas
+def generarMinimas(arbol):
+    global velocidad
+    duracion = 2 * ((arbol.ubicacion / velocidad) + (arbol.duracionSubir / velocidad))
+    print("Duracion: ", duracion)
+    print("Distancia Hormiguero: ", arbol.ubicacion)
+    cantidadHormigas = math.floor(duracion)
+    print("Cantidad Hormigas: ", cantidadHormigas)
+    hormigas = []
+    for segundo in range(0, math.floor(duracion)):
+        duracionTotal = duracion + segundo
+        hormigas.append(Hormiga(duracionTotal, velocidad))
+    print("Veces que va el grupo al arbol: ", arbol.cantHojas / len(hormigas))
+    return hormigas
 
 
+def voraz(tiempo, arboles, start_time):
+    global velocidad
+    sumaTotal = 0
+    while time() - start_time < tiempo:
+        for arbol in arboles:
+            print(arbol)
+            cantidadHormigas = len(generarMinimas(arbol))
+            print("Cantidad Hormigas: ", cantidadHormigas)
+            if cantidadHormigas > sumaTotal:
+                sumaTotal += cantidadHormigas - sumaTotal
+            print("___________________________________________")
+        break
+
+    print("Cantidad Hormigas Totales:", sumaTotal)
+
+
+"""
 def cantHojas(tiempo, arboles, cantHormigas, rango):
     rango.hojas = 0
     for arbol in arboles:
@@ -88,7 +95,7 @@ def mainProba():
     tiempo = 100000
     while tiempo > 0:
         hojasSolicitadas = 5000000
-        arboles = [Arbol(2, 2, 1500000), Arbol(4, 2, 5000000), Arbol(5, 3, 2500000), Arbol(8, 3, 250000)]
+        arboles = [Arbol(8, 2, 1500000), Arbol(4, 2, 5000000), Arbol(5, 3, 2500000), Arbol(8, 3, 250000)]
         mejorRango = probabilista(1500, tiempo, arboles)
         print(mejorRango)
         print(tiempo)
@@ -96,11 +103,19 @@ def mainProba():
             return print(mejorRango)
         tiempo -= round(tiempo * 0.020)
 
-
+"""
 if __name__ == "__main__":
+    tiempo = int(input("Inserte un tiempo por favor:"))
+    start_time = time()
+    voraz(tiempo * 0.2,
+          [Arbol(4, 2, 1500000), Arbol(6, 2, 500000), Arbol(8, 3, 250000), Arbol(10, 3, 250000), Arbol(12, 5, 1500000)],
+          start_time)
+    elapsed_time = time() - start_time
+    print("Elapsed time: %.15f seconds." % elapsed_time)
+    '''
     start_time = time()
     voraz = multiprocessing.Process(target=voraz, args=(
-    30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
+        30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
     mainProba = multiprocessing.Process(target=mainProba)
     voraz.start()
     mainProba.start()
@@ -110,3 +125,4 @@ if __name__ == "__main__":
 
     elapsed_time = time() - start_time
     print("Elapsed time: %.10f seconds." % elapsed_time)
+    '''
