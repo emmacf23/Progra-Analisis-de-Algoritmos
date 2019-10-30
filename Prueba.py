@@ -15,13 +15,18 @@ def oneByOne(tiempo, arboles, start_time):
     global velocidad
     hojasTotales = 0
     while time() - start_time < tiempo:
+        hormigasTotales = 0
         for arbol in arboles:
-            hojasTotales += arbol.cantHojas
-        duracion = 2 * ((arboles[-1].ubicacion / velocidad) + (arboles[-1].duracionSubir / velocidad))
-        hormigasTotales = math.floor(math.floor(duracion) / velocidad)
+            duracion = 2 * ((arbol.ubicacion / velocidad) + (arbol.duracionSubir / velocidad))
+            hormigasTotales = math.floor(math.floor(duracion) / velocidad)
+            hojasxArbol = math.floor(arbol.cantHojas / hormigasTotales) * hormigasTotales
+            hojasTotales += hojasxArbol
+            print("Hojas Por Arbol: ", hojasxArbol)
         print("Cantidad Hormigas: ", hormigasTotales)
         print("Hojas Totales: ", hojasTotales)
         break
+
+
 def cantHojas(arboles, cantHormigas, rango):
     global velocidad
     rango.hojas = 0
@@ -38,12 +43,15 @@ def sacarRangos(cantRangos, maxHormigas):
         rangos.append(Rango(1, rango * cant + 1, rango * (cant + 1)))
     return rangos
 
-def genRandom(min,max):
+
+def genRandom(min, max):
     return random.randint(min, max)
+
+
 def probabilistic(maxHormigas, arboles):
     ranges = sacarRangos(25, maxHormigas)
     mejorRango = ranges[random.randint(0, len(ranges) - 1)]
-    cantHojas(arboles, genRandom(mejorRango.numMinimo,mejorRango.numMaximo), mejorRango)
+    cantHojas(arboles, genRandom(mejorRango.numMinimo, mejorRango.numMaximo), mejorRango)
     for prueba in range(0, 10):
         ran = random.uniform(0.0, 1.0)
         for _range in ranges:
@@ -57,12 +65,13 @@ def probabilistic(maxHormigas, arboles):
                     _range.probabilidad -= 0.5
     return mejorRango
 
+
 if __name__ == "__main__":
-    """
     tiempo = int(input("Inserte un tiempo por favor:"))
-    arboles = [Arbol(4, 2, 1500000), Arbol(8, 3, 500000)]
+    arboles = [Arbol(4, 2, 50), Arbol(8, 3, 100)]
     start_time = time()
     oneByOne(tiempo * 0.2, arboles, start_time)
+    print("_____________________________")
     print(probabilistic(150, arboles))
     elapsed_time = time() - start_time
     print("Elapsed time: %.15f seconds." % elapsed_time)
@@ -81,3 +90,4 @@ if __name__ == "__main__":
 
     elapsed_time = time() - start_time
     print("Elapsed time: %.10f seconds." % elapsed_time)
+    """
