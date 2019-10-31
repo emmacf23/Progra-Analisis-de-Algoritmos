@@ -1,14 +1,11 @@
 import math
-import multiprocessing
-from multiprocessing import pool
 import random
 from time import time
 
 from Arbol import *
 from Rango import *
-from Hormigas import *
 
-velocidad = 2
+velocidad = 1
 
 
 def oneByOne(tiempo, arboles, start_time):
@@ -18,7 +15,7 @@ def oneByOne(tiempo, arboles, start_time):
         hormigasTotales = 0
         for arbol in arboles:
             duracion = 2 * ((arbol.ubicacion / velocidad) + (arbol.duracionSubir / velocidad))
-            hormigasTotales = math.floor(math.floor(duracion) / velocidad)
+            hormigasTotales = math.floor(math.floor(duracion) * (1 / velocidad))
             hojasxArbol = math.floor(arbol.cantHojas / hormigasTotales) * hormigasTotales
             hojasTotales += hojasxArbol
             print("Hojas Por Arbol: ", hojasxArbol)
@@ -27,13 +24,46 @@ def oneByOne(tiempo, arboles, start_time):
         break
 
 
+def balanced(tiempo, arboles, start_time):
+    global velocidad
+    hojasTotales = 0
+    hormigasTotales = 0
+    while time() - start_time < tiempo:
+        posicion = len(arboles) - 1
+        duracionAnterior = 0
+        while posicion >= 0:
+            duracion = 2 * ((arboles[posicion].ubicacion / velocidad) + (arboles[posicion].duracionSubir / velocidad))
+            if posicion == len(arboles) - 1:
+                duracionAnterior = duracion
+                hormigasTotales += math.floor(math.floor(duracionAnterior) * (1 / velocidad))
+            else:
+                hormigasTotales += duracionAnterior - duracion
+            hojasxArbol = math.floor(arboles[posicion].cantHojas / hormigasTotales) * hormigasTotales
+            hojasTotales += hojasxArbol
+            print("Hojas Por Arbol: ", hojasxArbol)
+            posicion -= 1
+        print("Cantidad Hormigas: ", hormigasTotales)
+        print("Hojas Totales: ", hojasTotales)
+        break
+
+
 def cantHojas(arboles, cantHormigas, rango):
     global velocidad
     rango.hojas = 0
-    for arbol in arboles:
-        rango.hojas += math.floor(arbol.cantHojas / cantHormigas) * cantHormigas
-    duracion = 2 * ((arboles[-1].ubicacion / velocidad) + (arboles[-1].duracionSubir / velocidad))
-    rango.sobrantes = cantHormigas - math.floor(math.floor(duracion) / velocidad)
+    posicion = len(arboles) - 1
+    duracionAnterior = 0
+    hormigasRestantes = cantHormigas
+    while posicion >= 0:
+        duracion = 2 * ((arboles[posicion].ubicacion / velocidad) + (arboles[posicion].duracionSubir / velocidad))
+        if posicion == len(arboles) - 1:
+            duracionAnterior = duracion
+            hormigasRestantes -= math.floor(math.floor(duracionAnterior) * (1 / velocidad))
+        else:
+            hormigasRestantes -= duracionAnterior - duracion
+        hojasxArbol = math.floor(arboles[posicion].cantHojas / cantHormigas) * cantHormigas
+        rango.hojas += hojasxArbol
+        posicion -= 1
+    rango.sobrantes = hormigasRestantes
 
 
 def sacarRangos(cantRangos, maxHormigas):
@@ -58,7 +88,8 @@ def probabilistic(maxHormigas, arboles):
             quantRandomAnts = random.randint(_range.numMinimo, _range.numMaximo)
             if _range.probabilidad > ran:
                 cantHojas(arboles, quantRandomAnts, _range)
-                if _range.hojas >= mejorRango.hojas and _range.sobrantes <= _range.numMaximo - _range.numMinimo:
+                if _range.hojas >= mejorRango.hojas and 0 <= _range.sobrantes <= _range.numMaximo - _range.numMinimo:
+                    print(_range.sobrantes)
                     mejorRango = _range
                     _range.probabilidad += 0.09
                 else:
@@ -68,9 +99,10 @@ def probabilistic(maxHormigas, arboles):
 
 if __name__ == "__main__":
     tiempo = int(input("Inserte un tiempo por favor:"))
-    arboles = [Arbol(4, 2, 50), Arbol(8, 3, 100)]
+    arboles = [Arbol(75, 3, 500000), Arbol(80, 3, 1000000), Arbol(100, 5, 1000000)]
     start_time = time()
     oneByOne(tiempo * 0.2, arboles, start_time)
+    balanced(tiempo * 0.2, arboles, start_time)
     print("_____________________________")
     print(probabilistic(150, arboles))
     elapsed_time = time() - start_time
