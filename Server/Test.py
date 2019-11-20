@@ -3,7 +3,7 @@ import math
 import multiprocessing
 
 from Genetic import *
-from Probabilistic import mainProbabilistic
+from Probabilistc import *
 from misc.tree import Tree
 
 antSpeed = 1
@@ -11,7 +11,6 @@ antSpeed = 1
 
 def oneByOne(pTrees):
     global antSpeed
-
     cantAnts = 0
     totalLeaves = 0
     for tree in pTrees:
@@ -45,21 +44,20 @@ with open('test3.json') as json_file:
         indexLetras += 1
 
 
-
 def reinar(pTime):
     geneSet = generateGeneSet(trees)
     quantAntsOO = oneByOne(trees)
     start_timeG = time()
     g = genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 100000000000, trees, start_timeG, (pTime * 0.2))
-    #print("Genetic: ", g)
+    print("Genetic: ", g)
     elapsed_time = time() - start_timeG
     print("Elapsed time: %.10f seconds." % elapsed_time)
-    return g.Order,trees
+    return g.Order, trees
 
-    #start_timeP = time()
-    #print("Probabilistic: ", mainProbabilistic(trees, quantAntsOO[0], start_timeP, 100000000000, (pTime * 0.2)))
-    #elapsed_time = time() - start_timeP
-    #print("Elapsed time: %.10f seconds." % elapsed_time)
+    # start_timeP = time()
+    # print("Probabilistic: ", mainProbabilistic(trees, quantAntsOO[0], start_timeP, 100000000000, (pTime * 0.2)))
+    # elapsed_time = time() - start_timeP
+    # print("Elapsed time: %.10f seconds." % elapsed_time)
 
     """
     mainProbabilistic = multiprocessing.Process(target=mainProbabilistic, args=(trees, quantAntsOO[0], start_time, 900000, (tiempo * 0.2)))
