@@ -19,9 +19,9 @@ export class TestsService {
 
   request(): Observable<any> {
     return this.http.post<any>("/run", {
-        name: "Comase esta",
-        email: "b",
-        password: "c"
+        name: "Comase esta"
+        // email: "b",
+        // password: "c"
     }).pipe(
       // catchError(this.handleError('addHero', hero))
     );
