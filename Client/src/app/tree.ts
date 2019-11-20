@@ -1,8 +1,8 @@
-export class Square {
+export class Tree {
     private color = 'black';
-    private x = 27;
-    private y = 115;
-    private z = 6;
+    private x = 0;
+    private y = 750;
+    private z = 8;
   
     constructor(private ctx: CanvasRenderingContext2D) {}
   
