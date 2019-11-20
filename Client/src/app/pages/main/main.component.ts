@@ -10,6 +10,9 @@ export class MainComponent implements OnInit {
 
   constructor() { }
 
+  public x2: number;
+
+
   ngOnInit() {
     d3.select("svg")
     .append("circle")
@@ -17,6 +20,22 @@ export class MainComponent implements OnInit {
     .attr("cx", "45")
     .attr("cy", "45")
     .attr("r", "10");
+
+    d3.select("svg")
+    .append("line")
+    .attr("stroke-width", 0.7)
+    .attr("stroke", "green")
+    .attr("x1","-40")
+    .attr("y1","90")
+    .attr("x2",this.grass(140))
+    .attr("y2","90")
+
+  }
+
+  grass(x2){
+    this.x2 = x2;
+
+    return this.x2;
   }
 
 }
