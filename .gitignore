@@ -68,3 +68,5 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 .DS_Store
+
+Client/node_modules/
