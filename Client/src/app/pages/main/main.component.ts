@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import { TreeService } from 'src/app/services/tree.service';
+import { TestsService } from 'src/app/services/tests.service';
 
 @Component({
   selector: 'app-main',
@@ -9,7 +10,7 @@ import { TreeService } from 'src/app/services/tree.service';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private tree_service: TreeService) { }
+  constructor(private tree_service: TreeService, private test_service: TestsService) { }
 
   public x2: number;
 
@@ -27,11 +28,12 @@ export class MainComponent implements OnInit {
     .attr("stroke-width", 0.7)
     .attr("stroke", "green")
     .attr("x1","-40")
-    .attr("y1","90")
-    .attr("x2",this.grass(140))
-    .attr("y2","90");
+    .attr("y1","300")
+    .attr("x2", this.grass(140))
+    .attr("y2","300");
 
-    this.tree_service.drawTree(d3.select('svg'));
+    // this.tree_service.drawTree(300, d3.select('svg'));
+    this.test_service.sendRequest();
   }
 
   grass(x2){

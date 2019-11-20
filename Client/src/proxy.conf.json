@@ -1,0 +1,8 @@
+{
+    "/run/*": {
+        "target": "http://172.18.20.7:5000/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

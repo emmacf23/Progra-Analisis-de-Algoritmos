@@ -8,8 +8,8 @@ export class TreeService {
 
   constructor() { }
 
-  drawTree(svg) {
-    const t = new Tree();
+  drawTree(baseLine, svg) {
+    const t = new Tree(baseLine);
     t.regenerate(true, svg);
   }
 }
