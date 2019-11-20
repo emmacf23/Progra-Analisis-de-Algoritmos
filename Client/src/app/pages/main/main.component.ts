@@ -123,26 +123,6 @@ export class MainComponent implements OnInit {
 
   }
 
-  // Funcion para ampliar el x2 de los caminos //
-  grass(x2) {
-    d3.select('svg')
-      .append('circle')
-      .attr('fill', 'red')
-      .attr('cx', '45')
-      .attr('cy', '45')
-      .attr('r', '10');
-
-    d3.select('svg')
-      .append('line')
-      .attr('stroke-width', 0.7)
-      .attr('stroke', 'green')
-      .attr('x1', '-40')
-      .attr('y1', '90')
-      .attr('x2', this.grass(140))
-      .attr('y2', '90');
-
-  }
-
   grass(x2) {
     this.x2 = x2;
 
