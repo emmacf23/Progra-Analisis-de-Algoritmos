@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
+import { TreeService } from 'src/app/services/tree.service';
 
 @Component({
   selector: 'app-main',
@@ -8,7 +9,7 @@ import * as d3 from 'd3';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tree_service: TreeService) { }
 
   public x2: number;
 
@@ -28,8 +29,9 @@ export class MainComponent implements OnInit {
     .attr("x1","-40")
     .attr("y1","90")
     .attr("x2",this.grass(140))
-    .attr("y2","90")
+    .attr("y2","90");
 
+    this.tree_service.drawTree(d3.select('svg'));
   }
 
   grass(x2){
