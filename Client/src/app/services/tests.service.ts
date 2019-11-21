@@ -10,6 +10,7 @@ export class TestsService {
 
 
   trees: Tree[];
+  order: [];
   serverData: JSON;
   bool:boolean = false;
   constructor(private http: HttpClient) {
@@ -32,6 +33,18 @@ export class TestsService {
     this.request()
       .subscribe((response) => {
         this.serverData = response as JSON;        
+        this.order = this.serverData["order"];
+        console.log("Server Data:",this.serverData);
+        //console.log("Arboles: ",this.trees);
+      });
+
+  }
+
+  sendRequestTree() {
+
+    this.requestTree()
+      .subscribe((response) => {
+        this.serverData = response as JSON;        
         this.readData(this.serverData["trees"]);
         console.log("Server Data:",this.serverData);
         console.log("Arboles: ",this.trees);
@@ -44,9 +57,15 @@ export class TestsService {
   }
 
   request(): Observable<any> {
-    return this.http.post<any>('/run/', {
+    return this.http.post<any>('/test/', {
       time: '10'
     }).pipe(
+      // catchError(this.handleError('addHero', hero))
+    );
+  }
+
+  requestTree(): Observable<any> {
+    return this.http.get<any>('/run/').pipe(
       // catchError(this.handleError('addHero', hero))
     );
   }

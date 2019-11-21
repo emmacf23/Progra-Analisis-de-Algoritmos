@@ -32,21 +32,15 @@ with open('test1.json') as json_file:
     data = json.load(json_file)
     indexLetras = 0
     for p in data['test']:
-        # print('PosX: ' + str(p['posX']))
-        # print('Length: ' + str(p['length']))
-        # print('Levels: ' + str(p['levels']))
-        # print('LeafLength: ' + str(p['leafLength']))
-        # print('')
         growPercentage = getGrowPercentage(p['length'], p['levels'], p['leafLength'])
         tree = Tree("A", p['posX'], p['levels'], p['length'], growPercentage)
-        # tree = Tree("A", p['posX'], p['levels'])
         trees.append(tree)
         indexLetras += 1
 
 
 def analize(pGene, pProba):
     if pGene.Aptitud / pGene.totalAnts > pProba["leaf_count"] / pProba["ant_count"]:
-        return pGene.order, data
+        return pGene.Order, data
     else:
         return pProba["loop"], data
 
