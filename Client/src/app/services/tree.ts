@@ -1,20 +1,24 @@
 import * as d3 from 'd3';
 
 export class Tree {
-    constructor(private baseLine, private pPercentage, private length, private pMaxDepth) {
+
+      // Tree configuration
+      private baseLine = 0
+      private branches = [];
+      private seed = { i: 0, x: 75, y: 110, a: 0, l: 20, d: 0 }; // a = angle, l = length, d = depth
+      private percentage = 0
+      private da = 0.18; // Angle delta
+      private dl; // Length delta (factor)
+      private ar = 0.7; // Randomness
+      private maxDepth = 14;
+      
+    constructor(private pBaseLine, private pPercentage, private length, private pMaxDepth) {
         this.percentage = pPercentage;
-        this.maxDepth = pMaxDepth;
+        //this.maxDepth = pMaxDepth;
+        this.baseLine = pBaseLine
+        
      }
 
-  private maxDepth = 14;
-    // Tree configuration
-    private branches = [];
-    private seed = { i: 0, x: 50, y: 110, a: 0, l: 20, d: 0 }; // a = angle, l = length, d = depth
-    private percentage = 0
-    private da = 0.18; // Angle delta
-    private dl; // Length delta (factor)
-    private ar = 0.7; // Randomness
-    private maxDepth = 0;
 
     private getGrowPercentage(pTreeLength, pTreeLevels, pLeafLength){
         return (pLeafLength / pTreeLength) ** 1 / pTreeLevels;

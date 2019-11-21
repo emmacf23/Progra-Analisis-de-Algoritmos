@@ -1,62 +1,53 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import {Tree} from './tree'
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Tree} from './tree';
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class TestsService {
 
-  tree: Object;
 
   trees: Tree[];
   serverData: JSON;
-  Trees: Tree[];
 
   constructor(private http: HttpClient) {
   }
 
-  readData(Trees) {
-    this.Trees = [];
-    // @ts-ignore
-    var trees = data.trees;
-    for (var i in trees) {
-      var x = trees[i].posX
-
-      this.Trees.push(trees[i].);
+  readData(pTrees) {
+    this.trees = [];
+    var t = pTrees["test"]
+    for (var i in t) {
+      var leafLength = t[i]["leafLength"];
+      var length = t[i]["length"];
+      var levels = t[i]["levels"];
+      var posX = t[i]["posX"];      
+      this.trees.push(new Tree(length, this.getGrowPercentage(length, levels, leafLength), posX, levels));
     }
   }
+
   sendRequest() {
 
     this.request()
       .subscribe((response) => {
-        this.serverData = response as JSON
-        this.readData(response.trees);
-        console.log(this.serverData);
-        console.log(this.trees);
-
+        this.serverData = response as JSON;
+        console.log("Arboles:",this.serverData["trees"]);
+        this.readData(this.serverData["trees"]);
+        console.log("Server Data:",this.serverData);
+        console.log("Arboles: ",this.trees);
       });
-      
+
   }
-  getGrowPercentage(pTreeLength, pTreeLevels, pLeafLength){
+
+  getGrowPercentage(pTreeLength, pTreeLevels, pLeafLength) {
     return (pLeafLength / pTreeLength) ** 1 / pTreeLevels;
   }
-  readData(pTrees){
-    this.trees = []
-    for (var i in pTrees){
-      var leafLength = pTrees[i].leafLength
-      var length = pTrees[i].length
-      var levels = pTrees[i].levels
-      var posX = pTrees[i].posX
-      this.trees.push(new Tree(length,this.getGrowPercentage(length,levels,leafLength),posX,levels))
-    }
-  }
+
   request(): Observable<any> {
     return this.http.post<any>('/run/', {
-      // name: "Comase esta"
       time: '10'
-      // email: "b",
-      // password: "c"
     }).pipe(
       // catchError(this.handleError('addHero', hero))
     );

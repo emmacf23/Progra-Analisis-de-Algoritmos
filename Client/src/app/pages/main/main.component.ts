@@ -21,14 +21,42 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
 
-    this.tree_service.drawTree(300, d3.select('svg'));
-    this.test_service.sendRequest();
+    this.test_service.sendRequest(); 
+    this.tree_service.drawTree(new Tree(35,68,18,21.799242003124995),d3.select('svg') )
+    /*
+    while (true){
+      this.trees = this.test_service.trees;
+      console.log("Arboles:",this.trees);
+      this.trees = this.test_service.trees;
+      if (this.trees != []){
+        console.log("Arboles ya cargados",this.trees)
+        for (var i in this.trees){
+          console.log("El i",this.trees[i])
+          this.tree_service.drawTree(this.trees[i],d3.select('svg'));
+        }
+        break;
+      }
+    }*/
+    console.log("Sali")
+    this.cualquierNombre();
+    
+  }
 
-    //this.tree_service.drawTree(300, d3.select('svg'));
+  grass(x2) {
+    this.x2 = x2;
 
-    this.trees = this.test_service.trees;
+    return this.x2;
+  }
 
-    /// Grass //
+
+  ant(cantAnts) {
+
+    this.cantAnts = cantAnts;
+
+    return this.cantAnts
+  }
+  
+  cualquierNombre(){
     d3.select('svg')
       .append('line')
       .attr('stroke-width', 15)
@@ -46,7 +74,7 @@ export class MainComponent implements OnInit {
       .attr('y1', '950')
       .attr('x2', this.grass(1300))
       .attr('y2', '950');
-
+      
     /// Anthill ///
     d3.select('svg')
       .append('path')
@@ -128,20 +156,5 @@ export class MainComponent implements OnInit {
 
       });
 
-
-  }
-
-  grass(x2) {
-    this.x2 = x2;
-
-    return this.x2;
-  }
-
-
-  ant(cantAnts) {
-
-    this.cantAnts = cantAnts;
-
-    return this.cantAnts
   }
 }
