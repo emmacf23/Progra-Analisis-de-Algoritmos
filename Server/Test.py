@@ -7,7 +7,7 @@ from Probabilistc import *
 from misc.tree import Tree
 
 antSpeed = 1
-
+xFactor = 1000000000
 
 def oneByOne(pTrees):
     global antSpeed
@@ -40,9 +40,9 @@ with open('test1.json') as json_file:
 
 def analize(pGene, pProba):
     if pGene.Aptitud / pGene.totalAnts > pProba["leaf_count"] / pProba["ant_count"]:
-        return pGene.Order, data
+        return pGene.Order, pGene.Aptitud
     else:
-        return pProba["loop"], data
+        return pProba["loop"], pProba["leaf_count"]
 
 
 def getData():
@@ -50,28 +50,21 @@ def getData():
 
 
 def reinar(pTime):
+    global xFactor
+    print("Tiempo",pTime)
     geneSet = generateGeneSet(trees)
     quantAntsOO = oneByOne(trees)
     start_timeG = time()
-    g = genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 10000, trees, start_timeG, (pTime * 0.2))
-    print("Genetic: ", g)
+    g = genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, xFactor, trees, start_timeG, (pTime * 0.2))
+    #print("Genetic: ", g)
     elapsed_time = time() - start_timeG
     print("Elapsed time: %.10f seconds." % elapsed_time)
     start_timeP = time()
-    p = mainProbabilistic(trees, quantAntsOO[0], start_timeP, 10000, (pTime * 0.2))
-    print("Probabilistic: ", p)
+    p = mainProbabilistic(trees, quantAntsOO[0], start_timeP, xFactor, (pTime * 0.2))
+    #print("Probabilistic: ", p)
     elapsed_time = time() - start_timeP
     print("Elapsed time: %.10f seconds." % elapsed_time)
+    print(quantAntsOO[1])
+    print("Genetico: Hormigas Totales:", g.totalAnts," Hojas:",g.Aptitud)
+    print("Probabilistico: Hormigas Totales:", p["ant_count"]," Hojas", p["leaf_count"])
     return analize(g, p)
-
-    """
-    mainProbabilistic = multiprocessing.Process(target=mainProbabilistic, args=(trees, quantAntsOO[0], start_time, 900000, (tiempo * 0.2)))
-    genetic = multiprocessing.Process(target=genetic, args=(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 900000, trees, start_time, (tiempo * 0.2)))
-    mainProbabilistic.start()
-    genetic.start()
-    mainProbabilistic.join()
-    genetic.join()
-    
-    elapsed_time = time() - start_time
-    print("Elapsed time: %.10f seconds." % elapsed_time)
-    """

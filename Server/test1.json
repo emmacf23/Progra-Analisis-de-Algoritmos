@@ -26,13 +26,13 @@
         },
         {
             "posX": 500,
-            "length": 800,
+            "length": 275,
             "levels": 14,
             "leafLength": 22.76097326796875
         },
         {
             "posX": 1000,
-            "length": 100,
+            "length": 175,
             "levels": 8,
             "leafLength": 30.77540047499999
         },
@@ -50,13 +50,13 @@
         },
         {
             "posX": 555,
-            "length": 150,
+            "length": 200,
             "levels": 12,
             "leafLength": 25.005012885937493
         },
         {
             "posX": 350,
-            "length": 600,
+            "length": 50,
             "levels": 8,
             "leafLength": 22.76097326796875
         },
@@ -73,8 +73,8 @@
             "leafLength": 25.005012885937493
         },
         {
-            "posX": 500,
-            "length": 600,
+            "posX": 1300,
+            "length": 200,
             "levels": 8,
             "leafLength": 22.76097326796875
         },
@@ -82,6 +82,48 @@
             "posX": 900,
             "length": 100,
             "levels": 8,
+            "leafLength": 30.77540047499999
+        },
+        {
+            "posX": 350,
+            "length": 250,
+            "levels": 8,
+            "leafLength": 30.134246298437493
+        },
+        {
+            "posX": 555,
+            "length": 150,
+            "levels": 12,
+            "leafLength": 25.005012885937493
+        },
+        {
+            "posX": 350,
+            "length": 125,
+            "levels": 10,
+            "leafLength": 22.76097326796875
+        },
+        {
+            "posX": 685,
+            "length": 100,
+            "levels": 8,
+            "leafLength": 30.77540047499999
+        },
+        {
+            "posX": 435,
+            "length": 150,
+            "levels": 12,
+            "leafLength": 25.005012885937493
+        },
+        {
+            "posX": 225,
+            "length": 225,
+            "levels": 8,
+            "leafLength": 22.76097326796875
+        },
+        {
+            "posX": 775,
+            "length": 100,
+            "levels": 10,
             "leafLength": 30.77540047499999
         }
     ]
