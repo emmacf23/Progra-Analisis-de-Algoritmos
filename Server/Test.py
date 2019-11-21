@@ -50,17 +50,18 @@ def analize(pGene, pProba):
     else:
         return pProba["loop"], data
 
-
+def getData():
+    return data
 def reinar(pTime):
     geneSet = generateGeneSet(trees)
     quantAntsOO = oneByOne(trees)
     start_timeG = time()
-    g = genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 100000000000, trees, start_timeG, (pTime * 0.2))
+    g = genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 10000, trees, start_timeG, (pTime * 0.2))
     print("Genetic: ", g)
     elapsed_time = time() - start_timeG
     print("Elapsed time: %.10f seconds." % elapsed_time)
     start_timeP = time()
-    p = mainProbabilistic(trees, quantAntsOO[0], start_timeP, 100000000000, (pTime * 0.2))
+    p = mainProbabilistic(trees, quantAntsOO[0], start_timeP, 10000, (pTime * 0.2))
     print("Probabilistic: ", p)
     elapsed_time = time() - start_timeP
     print("Elapsed time: %.10f seconds." % elapsed_time)
