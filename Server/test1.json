@@ -1,124 +1,88 @@
 {
     "test": [
         {
-            "posX": 27,
-            "length": 68,
-            "levels": 8,
+            "posX": 100,
+            "length": 150,
+            "levels": 10,
             "leafLength": 21.799242003124995
         },
         {
-            "posX": 70,
-            "length": 95,
-            "levels": 8,
-            "leafLength": 30.454823386718747
+            "posX": 300,
+            "length": 150,
+            "levels": 14,
+            "leafLength": 20.196356561718748
         },
         {
-            "posX": 90,
-            "length": 94,
-            "levels": 8,
+            "posX": 400,
+            "length": 250,
+            "levels": 10,
             "leafLength": 30.134246298437493
         },
         {
-            "posX": 52,
-            "length": 78,
-            "levels": 8,
+            "posX": 600,
+            "length": 200,
+            "levels": 12,
             "leafLength": 25.005012885937493
         },
         {
-            "posX": 96,
-            "length": 71,
-            "levels": 8,
+            "posX": 500,
+            "length": 800,
+            "levels": 14,
             "leafLength": 22.76097326796875
         },
         {
-            "posX": 84,
-            "length": 96,
+            "posX": 1000,
+            "length": 100,
             "levels": 8,
             "leafLength": 30.77540047499999
         },
         {
-            "posX": 29,
-            "length": 63,
-            "levels": 8,
+            "posX": 1300,
+            "length": 250,
+            "levels": 14,
             "leafLength": 20.196356561718748
         },
         {
-            "posX": 57,
-            "length": 62,
+            "posX": 400,
+            "length": 250,
             "levels": 8,
-            "leafLength": 19.875779473437493
+            "leafLength": 30.134246298437493
         },
         {
-            "posX": 53,
-            "length": 93,
-            "levels": 8,
-            "leafLength": 29.81366921015624
+            "posX": 555,
+            "length": 150,
+            "levels": 12,
+            "leafLength": 25.005012885937493
         },
         {
-            "posX": 33,
-            "length": 98,
-            "levels": 8,
-            "leafLength": 31.416554651562492
-        },
-        {
-            "posX": 183,
-            "length": 71,
+            "posX": 350,
+            "length": 600,
             "levels": 8,
             "leafLength": 22.76097326796875
         },
         {
-            "posX": 144,
-            "length": 93,
+            "posX": 745,
+            "length": 100,
             "levels": 8,
-            "leafLength": 29.81366921015624
+            "leafLength": 30.77540047499999
         },
         {
-            "posX": 147,
-            "length": 66,
-            "levels": 8,
-            "leafLength": 21.158087826562497
+            "posX": 600,
+            "length": 150,
+            "levels": 12,
+            "leafLength": 25.005012885937493
         },
         {
-            "posX": 196,
-            "length": 79,
+            "posX": 200,
+            "length": 600,
             "levels": 8,
-            "leafLength": 25.325589974218747
+            "leafLength": 22.76097326796875
         },
         {
-            "posX": 108,
-            "length": 76,
+            "posX": 900,
+            "length": 100,
             "levels": 8,
-            "leafLength": 24.363858709375
-        },
-        {
-            "posX": 135,
-            "length": 91,
-            "levels": 8,
-            "leafLength": 29.172515033593736
-        },
-        {
-            "posX": 117,
-            "length": 93,
-            "levels": 8,
-            "leafLength": 29.81366921015624
-        },
-        {
-            "posX": 134,
-            "length": 64,
-            "levels": 8,
-            "leafLength": 20.51693364999999
-        },
-        {
-            "posX": 151,
-            "length": 91,
-            "levels": 8,
-            "leafLength": 29.172515033593736
-        },
-        {
-            "posX": 137,
-            "length": 73,
-            "levels": 8,
-            "leafLength": 23.402127444531246
+            "leafLength": 30.77540047499999
         }
     ]
 }

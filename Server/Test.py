@@ -50,8 +50,11 @@ def analize(pGene, pProba):
     else:
         return pProba["loop"], data
 
+
 def getData():
     return data
+
+
 def reinar(pTime):
     geneSet = generateGeneSet(trees)
     quantAntsOO = oneByOne(trees)
