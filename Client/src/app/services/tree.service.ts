@@ -9,8 +9,8 @@ export class TreeService {
 
   constructor() { }
 
-  drawTree(baseLine,percentage,levels,posX, svg) {
-    const t = new Tree(baseLine,percentage,posX,levels);
+  drawTree(tree, svg) {
+    const t = tree;
     t.regenerate(true, svg);
   }
 }
