@@ -28,7 +28,7 @@ def getGrowPercentage(pTreeLength, pTreeLevels, pLeafLength):
 
 
 trees = []
-with open('test3.json') as json_file:
+with open('test1.json') as json_file:
     data = json.load(json_file)
     indexLetras = 0
     for p in data['test']:
@@ -44,6 +44,13 @@ with open('test3.json') as json_file:
         indexLetras += 1
 
 
+def analize(pGene, pProba):
+    if pGene.Aptitud / pGene.totalAnts > pProba["leaf_count"] / pProba["ant_count"]:
+        return pGene.order, data
+    else:
+        return pProba["loop"], data
+
+
 def reinar(pTime):
     geneSet = generateGeneSet(trees)
     quantAntsOO = oneByOne(trees)
@@ -52,12 +59,12 @@ def reinar(pTime):
     print("Genetic: ", g)
     elapsed_time = time() - start_timeG
     print("Elapsed time: %.10f seconds." % elapsed_time)
-    return g.Order, trees
-
-    # start_timeP = time()
-    # print("Probabilistic: ", mainProbabilistic(trees, quantAntsOO[0], start_timeP, 100000000000, (pTime * 0.2)))
-    # elapsed_time = time() - start_timeP
-    # print("Elapsed time: %.10f seconds." % elapsed_time)
+    start_timeP = time()
+    p = mainProbabilistic(trees, quantAntsOO[0], start_timeP, 100000000000, (pTime * 0.2))
+    print("Probabilistic: ", p)
+    elapsed_time = time() - start_timeP
+    print("Elapsed time: %.10f seconds." % elapsed_time)
+    return analize(g, p)
 
     """
     mainProbabilistic = multiprocessing.Process(target=mainProbabilistic, args=(trees, quantAntsOO[0], start_time, 900000, (tiempo * 0.2)))
