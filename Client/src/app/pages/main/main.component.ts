@@ -47,6 +47,7 @@ export class MainComponent implements OnInit {
   }
 
   drawWeb(response, trees) {
+
     d3.select('svg')
       .append('line')
       .attr('stroke-width', 15)
@@ -116,7 +117,7 @@ export class MainComponent implements OnInit {
       treeArray.push(trees[treeIndex]);
     }
 
-    for (let ant = 0; ant <= order[0].length; ant++) {
+    for (let ant = 0; ant <= order[1].length; ant++) {
       d3.select('svg')
         .append('rect')
         .attr('fill', 'black')
@@ -125,8 +126,6 @@ export class MainComponent implements OnInit {
         .attr('width', 8)
         .attr('height', 8);
     }
-
-
     let arbol = -1
     d3.selectAll('rect').transition()
       .delay(function (d, i) {
@@ -135,11 +134,11 @@ export class MainComponent implements OnInit {
       .on('start', function repeat() {
         arbol = arbol + 1;
 
-        let arbolAVisitar = treeArray[order[0][arbol] - 1]["posX"];
-        let arbolHeight = treeArray[order[0][arbol] - 1]["seed"]["l"];
-        let arbolLastHeight = treeArray[order[0][arbol] - 1]["seed"]["l"];
-        let arbolLevels = treeArray[order[0][arbol] - 1]["seed"]["l"];
-        let arbolPercentage = treeArray[order[0][arbol] - 1]["percentage"];
+        let arbolAVisitar = treeArray[order[1][arbol] - 1]["posX"];
+        let arbolHeight = treeArray[order[1][arbol] - 1]["seed"]["l"];
+        let arbolLastHeight = treeArray[order[1][arbol] - 1]["seed"]["l"];
+        let arbolLevels = treeArray[order[1][arbol] - 1]["seed"]["l"];
+        let arbolPercentage = treeArray[order[1][arbol] - 1]["percentage"];
 
 
         for (let level = 1; level < arbolLevels; level++) {
