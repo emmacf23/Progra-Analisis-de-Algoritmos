@@ -21,6 +21,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
 
+    this.tree_service.drawTree(300, d3.select('svg'));
     this.test_service.sendRequest();
 
     //this.tree_service.drawTree(300, d3.select('svg'));
@@ -126,7 +127,7 @@ export class MainComponent implements OnInit {
           .on('start', repeat);
 
       });
-      
+
 
   }
 

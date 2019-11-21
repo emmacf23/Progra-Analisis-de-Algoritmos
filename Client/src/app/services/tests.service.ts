@@ -11,8 +11,21 @@ export class TestsService {
 
   trees: Tree[];
   serverData: JSON;
-  constructor(private http: HttpClient) { }
+  Trees: Tree[];
 
+  constructor(private http: HttpClient) {
+  }
+
+  readData(Trees) {
+    this.Trees = [];
+    // @ts-ignore
+    var trees = data.trees;
+    for (var i in trees) {
+      var x = trees[i].posX
+
+      this.Trees.push(trees[i].);
+    }
+  }
   sendRequest() {
 
     this.request()
@@ -39,11 +52,11 @@ export class TestsService {
     }
   }
   request(): Observable<any> {
-    return this.http.post<any>("/run/", {
-        // name: "Comase esta"
-        time: "10"
-        // email: "b",
-        // password: "c"
+    return this.http.post<any>('/run/', {
+      // name: "Comase esta"
+      time: '10'
+      // email: "b",
+      // password: "c"
     }).pipe(
       // catchError(this.handleError('addHero', hero))
     );
