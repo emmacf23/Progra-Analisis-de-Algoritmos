@@ -13,9 +13,9 @@ export class Tree {
       private maxDepth = 14;
       
     constructor(private pBaseLine, private pPercentage, private length, private pMaxDepth) {
-        this.percentage = pPercentage;
-        //this.maxDepth = pMaxDepth;
-        this.baseLine = pBaseLine
+        this.percentage = pPercentage
+        this.seed = { i: 0, x: length, y: 110, a: 0, l: 20, d: 0 }; // a = angle, l = length, d = depth
+        this.baseLine = 800
         
      }
 

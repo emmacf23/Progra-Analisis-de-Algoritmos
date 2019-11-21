@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Tree} from './tree';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +11,7 @@ export class TestsService {
 
   trees: Tree[];
   serverData: JSON;
-
+  bool:boolean = false;
   constructor(private http: HttpClient) {
   }
 
@@ -24,7 +23,7 @@ export class TestsService {
       var length = t[i]["length"];
       var levels = t[i]["levels"];
       var posX = t[i]["posX"];      
-      this.trees.push(new Tree(length, this.getGrowPercentage(length, levels, leafLength), posX, levels));
+      this.trees.push(new Tree(posX, this.getGrowPercentage(length, levels, leafLength), length, levels));
     }
   }
 
@@ -32,11 +31,11 @@ export class TestsService {
 
     this.request()
       .subscribe((response) => {
-        this.serverData = response as JSON;
-        console.log("Arboles:",this.serverData["trees"]);
+        this.serverData = response as JSON;        
         this.readData(this.serverData["trees"]);
         console.log("Server Data:",this.serverData);
         console.log("Arboles: ",this.trees);
+        this.bool = true;
       });
 
   }

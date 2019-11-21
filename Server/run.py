@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for, Response
 
-from Test import reinar
+from Test import reinar, getData
 import json
 
 app = Flask(__name__)
@@ -25,6 +25,8 @@ def run():
     if request.method == 'POST':
         duration = request.json['time']
         print("Duracion", duration)
-        results = reinar(int(duration))
-        return jsonify({'order': results[0], 'trees': results[1]})
+        #results = reinar(int(duration))
+        #return jsonify({'order': results[0], 'trees': results[1]})
+        return jsonify({'trees':getData()})
     return jsonify({'data':'Hello World!'})
+

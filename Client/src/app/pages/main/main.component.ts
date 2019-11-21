@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnChanges} from '@angular/core';
 import * as d3 from 'd3';
 import { TreeService } from 'src/app/services/tree.service';
 import { TestsService } from 'src/app/services/tests.service';
 import { Tree } from 'src/app/services/tree';
+import { timeout } from 'q';
 
 @Component({
   selector: 'app-main',
@@ -17,30 +18,46 @@ export class MainComponent implements OnInit {
 
   public x2: number;
   public cantAnts: number;
-  public trees:Tree[];
-
+  
   ngOnInit() {
-
-    this.test_service.sendRequest(); 
-    this.tree_service.drawTree(new Tree(35,68,18,21.799242003124995),d3.select('svg') )
-    /*
-    while (true){
-      this.trees = this.test_service.trees;
-      console.log("Arboles:",this.trees);
-      this.trees = this.test_service.trees;
-      if (this.trees != []){
-        console.log("Arboles ya cargados",this.trees)
-        for (var i in this.trees){
-          console.log("El i",this.trees[i])
-          this.tree_service.drawTree(this.trees[i],d3.select('svg'));
-        }
-        break;
+    this.test_service.sendRequest();
+    setTimeout( () => { 
+    var trees = this.test_service.trees;  
+      for (var i in trees){
+        this.tree_service.drawTree(trees[i],d3.select('svg'));
       }
-    }*/
     console.log("Sali")
     this.cualquierNombre();
-    
+  }, 500 );
   }
+  /*
+  ngAfterContentInit(){
+    var trees = this.test_service.trees;  
+    console.log("Arboles ya cargados",this.test_service.trees)
+      for (var i in trees){
+        console.log("El i",trees[i])
+        this.tree_service.drawTree(trees[i],d3.select('svg'));
+      }
+    console.log("Sali")
+    this.cualquierNombre();
+  }*/
+/*
+  cargarArboles() {    
+    
+    var trees = this.test_service.trees;
+    console.log("Arboles:",trees);
+    if (trees != []){
+      console.log("Arboles ya cargados",trees)
+      for (var i in trees){
+        console.log("El i",trees[i])
+        this.tree_service.drawTree(trees[i],d3.select('svg'));
+      }
+      
+    }
+    console.log("Sali")
+    this.cualquierNombre();
+  }*/
+
 
   grass(x2) {
     this.x2 = x2;
