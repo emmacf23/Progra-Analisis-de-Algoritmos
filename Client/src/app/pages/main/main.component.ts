@@ -4,6 +4,7 @@ import { TreeService } from 'src/app/services/tree.service';
 import { TestsService } from 'src/app/services/tests.service';
 import { Tree } from 'src/app/services/tree';
 import { timeout } from 'q';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-main',
@@ -20,45 +21,17 @@ export class MainComponent implements OnInit {
   public cantAnts: number;
   
   ngOnInit() {
-    this.test_service.sendRequest();
+    this.test_service.sendRequestTree();
     setTimeout( () => { 
     var trees = this.test_service.trees;  
       for (var i in trees){
         this.tree_service.drawTree(trees[i],d3.select('svg'));
       }
     console.log("Sali")
-    this.cualquierNombre();
+    this.drawWeb();
   }, 500 );
+  this.test_service.sendRequest();
   }
-  /*
-  ngAfterContentInit(){
-    var trees = this.test_service.trees;  
-    console.log("Arboles ya cargados",this.test_service.trees)
-      for (var i in trees){
-        console.log("El i",trees[i])
-        this.tree_service.drawTree(trees[i],d3.select('svg'));
-      }
-    console.log("Sali")
-    this.cualquierNombre();
-  }*/
-/*
-  cargarArboles() {    
-    
-    var trees = this.test_service.trees;
-    console.log("Arboles:",trees);
-    if (trees != []){
-      console.log("Arboles ya cargados",trees)
-      for (var i in trees){
-        console.log("El i",trees[i])
-        this.tree_service.drawTree(trees[i],d3.select('svg'));
-      }
-      
-    }
-    console.log("Sali")
-    this.cualquierNombre();
-  }*/
-
-
   grass(x2) {
     this.x2 = x2;
 
@@ -73,7 +46,7 @@ export class MainComponent implements OnInit {
     return this.cantAnts
   }
   
-  cualquierNombre(){
+  drawWeb(){
     d3.select('svg')
       .append('line')
       .attr('stroke-width', 15)
@@ -179,7 +152,6 @@ export class MainComponent implements OnInit {
           .transition()
           //.on('start', repeat);
 
-      });
-
+      });      
   }
 }
