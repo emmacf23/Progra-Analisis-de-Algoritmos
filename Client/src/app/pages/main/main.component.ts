@@ -18,62 +18,62 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
 
-    this.tree_service.drawTree(300, d3.select('svg'));
+    //this.tree_service.drawTree(300, d3.select('svg'));
     
-    this.test_service.sendRequest();
+    //this.test_service.sendRequest();
 
     /// Grass //
     d3.select('svg')
       .append('line')
       .attr('stroke-width', 15)
       .attr('stroke', 'green')
-      .attr('x1', '-150')
+      .attr('x1', '100')
       .attr('y1', '850')
-      .attr('x2', this.grass(1300))
+      .attr('x2', this.grass(1500))
       .attr('y2', '850');
 
     d3.select('svg')
       .append('line')
       .attr('stroke-width', 15)
       .attr('stroke', 'green')
-      .attr('x1', '-150')
+      .attr('x1', '100')
       .attr('y1', '950')
-      .attr('x2', this.grass(1300))
+      .attr('x2', this.grass(1500))
       .attr('y2', '950');
 
     /// Anthill ///
     d3.select('svg')
       .append('path')
-      .attr('d', 'M-365,850 C-370,870 -360,900 -410,950')
+      .attr('d', 'M-115,850 C-120,870 -110,900 -160,950')
       .attr('fill', 'none')
       .attr('stroke-width', 8)
       .attr('stroke', 'black');
 
     d3.select('svg')
       .append('path')
-      .attr('d', 'M-235,850 C-233,870 -240,900 -190,950')
+      .attr('d', 'M15,850 C17,870 10,900 60,950')
       .attr('fill', 'none')
       .attr('stroke-width', 8)
       .attr('stroke', 'black');
 
     d3.select('svg')
       .append('path')
-      .attr('d', 'M-342,890 C-343,900 -340,900 -380,950')
+      .attr('d', 'M-92,890 C-93,900 -90,900 -130,950')
       .attr('fill', 'none')
       .attr('stroke-width', 2)
       .attr('stroke', 'black');
 
     d3.select('svg')
       .append('path')
-      .attr('d', 'M-255,890 C-253,900 -260,900 -210,950')
+      .attr('d', 'M-5,890 C-3,900 -10,900 40,950')
       .attr('fill', 'none')
-      .attr('stroke-width', 3)
+      .attr('stroke-width', 2)
       .attr('stroke', 'black');
 
     d3.select('svg')
       .append('ellipse')
       .attr('fill', 'black')
-      .attr('cx', '-300')
+      .attr('cx', '-50')
       .attr('cy', '850')
       .attr('rx', '70')
       .attr('ry', '25');
@@ -83,23 +83,31 @@ export class MainComponent implements OnInit {
       d3.select('svg')
         .append('rect')
         .attr('fill', 'black')
-        .attr('x', -250)
+        .attr('x', 0)
         .attr('y', 846)
         .attr('width', 8)
         .attr('height', 8);
     }
 
-    let distance = this.grass(1290);
+    
+    var i = 200;
     d3.selectAll('rect').transition()
       .delay(function(d, i) {
         return 500 * i;
       })
       .on('start', function repeat() {
 
+        i = i + 100;
+
+        if (i > 1500){
+          i = 300;
+        }
+
+        var j = i/1500
         d3.active(this)
         // 1 Transition //
-          .duration(3000)
-          .attr('x', distance)
+          .duration(6000*j)
+          .attr('x', i)
           .ease(d3.easeLinear)
 
           // 2 Transition //
@@ -109,16 +117,16 @@ export class MainComponent implements OnInit {
 
           // 2 Transition //
           .transition()
-          .duration(3000)
-          .attr('x', -150)
+          .duration(6000*j)
+          .attr('x', 0)
 
           // 1 Transition //
           .transition()
           .duration(2000)
-          .attr('x', -250)
+          .attr('x', 0)
           .attr('y', 846)
           .transition()
-          .on('start', repeat);
+          //.on('start', repeat);
 
       });
       
