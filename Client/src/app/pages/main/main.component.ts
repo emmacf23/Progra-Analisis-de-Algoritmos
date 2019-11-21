@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { TreeService } from 'src/app/services/tree.service';
 import { TestsService } from 'src/app/services/tests.service';
@@ -13,24 +13,25 @@ import { TouchSequence } from 'selenium-webdriver';
 })
 export class MainComponent implements OnInit {
 
-  
+
 
   constructor(private tree_service: TreeService, private test_service: TestsService) { }
 
   public x2: number;
   public cantAnts: number;
-  
+
   ngOnInit() {
-    this.test_service.sendRequestTree();
-    setTimeout( () => { 
-    var trees = this.test_service.trees;  
-      for (var i in trees){
-        this.tree_service.drawTree(trees[i],d3.select('svg'));
+    this.test_service.sendRequestTree((trees) => {
+      for (var i in trees) {
+        this.tree_service.drawTree(trees[i], d3.select('svg'));
       }
-    console.log("Sali")
-    this.drawWeb();
-  }, 500 );
-  this.test_service.sendRequest();
+      console.log("Sali")
+      this.drawWeb();
+    });
+
+    this.test_service.sendRequest((response) => {
+      console.log(response);
+    });
   }
   grass(x2) {
     this.x2 = x2;
@@ -45,8 +46,8 @@ export class MainComponent implements OnInit {
 
     return this.cantAnts
   }
-  
-  drawWeb(){
+
+  drawWeb() {
     d3.select('svg')
       .append('line')
       .attr('stroke-width', 15)
@@ -64,7 +65,7 @@ export class MainComponent implements OnInit {
       .attr('y1', '950')
       .attr('x2', this.grass(1500))
       .attr('y2', '950');
-      
+
     /// Anthill ///
     d3.select('svg')
       .append('path')
@@ -113,24 +114,24 @@ export class MainComponent implements OnInit {
         .attr('height', 8);
     }
 
-    
+
     var i = 200;
     d3.selectAll('rect').transition()
-      .delay(function(d, i) {
+      .delay(function (d, i) {
         return 500 * i;
       })
       .on('start', function repeat() {
 
         i = i + 100;
 
-        if (i > 1500){
+        if (i > 1500) {
           i = 300;
         }
 
-        var j = i/1500
+        var j = i / 1500
         d3.active(this)
-        // 1 Transition //
-          .duration(6000*j)
+          // 1 Transition //
+          .duration(6000 * j)
           .attr('x', i)
           .ease(d3.easeLinear)
 
@@ -141,7 +142,7 @@ export class MainComponent implements OnInit {
 
           // 2 Transition //
           .transition()
-          .duration(6000*j)
+          .duration(6000 * j)
           .attr('x', 0)
 
           // 1 Transition //
@@ -150,8 +151,8 @@ export class MainComponent implements OnInit {
           .attr('x', 0)
           .attr('y', 846)
           .transition()
-          //.on('start', repeat);
+        //.on('start', repeat);
 
-      });      
+      });
   }
 }

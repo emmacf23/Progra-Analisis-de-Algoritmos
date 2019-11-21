@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Tree} from './tree';
-import {TreeService} from './tree.service'
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Tree } from './tree';
+import { TreeService } from './tree.service'
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,7 @@ export class TestsService {
   trees: Tree[];
   order: [];
   serverData: JSON;
-  bool:boolean = false;
+  bool: boolean = false;
   constructor(private http: HttpClient) {
   }
 
@@ -23,33 +23,25 @@ export class TestsService {
       var leafLength = t[i]["leafLength"];
       var length = t[i]["length"];
       var levels = t[i]["levels"];
-      var posX = t[i]["posX"];  
+      var posX = t[i]["posX"];
       this.trees.push(new Tree(posX, this.getGrowPercentage(length, levels, leafLength), length, levels));
     }
   }
 
-  sendRequest() {
+  sendRequest(onSuccess: (response: any) => void) {
 
     this.request()
-      .subscribe((response) => {
-        this.serverData = response as JSON;        
-        this.order = this.serverData["order"];
-        console.log("Server Data:",this.serverData);
-        //console.log("Arboles: ",this.trees);
-      });
+      .subscribe(onSuccess);
 
   }
 
-  sendRequestTree() {
-
+  sendRequestTree(onSuccess: (response: any) => void) {
     this.requestTree()
       .subscribe((response) => {
-        this.serverData = response as JSON;        
+        this.serverData = response as JSON;
         this.readData(this.serverData["trees"]);
-        console.log("Server Data:",this.serverData);
-        console.log("Arboles: ",this.trees);
+        onSuccess(this.trees);
       });
-
   }
 
   getGrowPercentage(pTreeLength, pTreeLevels, pLeafLength) {
