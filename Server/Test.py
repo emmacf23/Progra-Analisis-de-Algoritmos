@@ -1,13 +1,13 @@
 import json
 import math
-import multiprocessing
 
 from Genetic import *
 from Probabilistc import *
 from misc.tree import Tree
 
 antSpeed = 1
-xFactor = 1000000000
+xFactor = 100000000000
+
 
 def oneByOne(pTrees):
     global antSpeed
@@ -50,21 +50,20 @@ def getData():
 
 
 def reinar(pTime):
-    global xFactor
-    print("Tiempo",pTime)
+    global xFactor, antSpeed
     geneSet = generateGeneSet(trees)
     quantAntsOO = oneByOne(trees)
     start_timeG = time()
-    g = genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, xFactor, trees, start_timeG, (pTime * 0.2))
-    #print("Genetic: ", g)
+    g = genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, xFactor, trees, start_timeG, (pTime * 0.2) / 2)
+    # print("Genetic: ", g)
     elapsed_time = time() - start_timeG
     print("Elapsed time: %.10f seconds." % elapsed_time)
     start_timeP = time()
-    p = mainProbabilistic(trees, quantAntsOO[0], start_timeP, xFactor, (pTime * 0.2))
-    #print("Probabilistic: ", p)
+    p = mainProbabilistic(trees, quantAntsOO[0], start_timeP, xFactor, (pTime * 0.2) / 2, antSpeed)
+    # print("Probabilistic: ", p)
     elapsed_time = time() - start_timeP
     print("Elapsed time: %.10f seconds." % elapsed_time)
     print(quantAntsOO[1])
-    print("Genetico: Hormigas Totales:", g.totalAnts," Hojas:",g.Aptitud)
-    print("Probabilistico: Hormigas Totales:", p["ant_count"]," Hojas", p["leaf_count"])
+    print("Genetico: Hormigas Totales:", g.totalAnts, " Hojas:", g.Aptitud)
+    print("Probabilistico: Hormigas Totales:", p["ant_count"], " Hojas", p["leaf_count"])
     return analize(g, p)

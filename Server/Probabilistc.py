@@ -33,23 +33,22 @@ def getTreeByProbability(pRandom, pProbabilities):
     return treePosition
 
 
-def probabilistic(pQuantAnts, pProbabilities, pTrees, pTime):
+def probabilistic(pQuantAnts, pProbabilities, pTrees, pTime,pAntsSpeed):
     ants = []
     for i in range(0, pQuantAnts):
         r = random.uniform(0.0, 1.0)
         position = getTreeByProbability(r, pProbabilities)
         ants.append(position)
-        #Cambiar Velocidad
-    result = AntAdmin.evaluate(pTrees, ants, 1, pTime)
+    result = AntAdmin.evaluate(pTrees, ants, pAntsSpeed, pTime)
     return result
 
 
-def mainProbabilistic(pTrees, pQuantAnts, pStartTime, pTime, pTime_lapse):
+def mainProbabilistic(pTrees, pQuantAnts, pStartTime, pTime, pTime_lapse,pAntsSpeed):
     allBacks = getBacks(pTrees)
     probabilities = getProbability(pTrees, allBacks)
-    bestResult = probabilistic(pQuantAnts, probabilities, pTrees, pTime)
+    bestResult = probabilistic(pQuantAnts, probabilities, pTrees, pTime,pAntsSpeed)
     while time() - pStartTime < pTime_lapse:
-        result = probabilistic(pQuantAnts, probabilities, pTrees, pTime)
+        result = probabilistic(pQuantAnts, probabilities, pTrees, pTime,pAntsSpeed)
         if result["leaf_count"] > bestResult["leaf_count"]:
             bestResult = result
     return bestResult

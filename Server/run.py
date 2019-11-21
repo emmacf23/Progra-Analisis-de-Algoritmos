@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, render_template, request, redirect, url_for, Response
+from flask import Flask, jsonify, request
+
 from Test import reinar, getData
 
 app = Flask(__name__)
