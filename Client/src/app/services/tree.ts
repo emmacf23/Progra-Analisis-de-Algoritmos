@@ -11,6 +11,10 @@ export class Tree {
     private ar = 0.7; // Randomness
     private maxDepth = 14;
 
+    private getGrowPercentage(pTreeLength, pTreeLevels, pLeafLength){
+        return (pLeafLength / pTreeLength) ** 1 / pTreeLevels;
+    }
+
     private color = d3.scaleLinear()
         .domain([1, this.maxDepth])
         .range(["black", "rgb(102, 51, 0)"]);
