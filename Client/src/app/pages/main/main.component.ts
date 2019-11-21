@@ -18,24 +18,37 @@ export class MainComponent implements OnInit {
   constructor(private tree_service: TreeService, private test_service: TestsService) { }
 
   public x2: number;
-  public cantAnts: number;
+  public cantAnts: number = 0;
 
   ngOnInit() {
-    this.test_service.sendRequestTree((trees) => {
-      console.log("ServerData", trees);
-      for (var i in trees) {
-        this.tree_service.drawTree(trees[i], d3.select('svg'));
-      }
-      console.log("Sali")
-      this.test_service.sendRequest((response) => {
-        this.drawWeb(response, trees);
-      });
-    });
+    // this.test_service.sendRequestTree((trees) => {
+    //   console.log("ServerData", trees);
+    //   for (var i in trees) {
+    //     this.tree_service.drawTree(trees[i], d3.select('svg'));
+    //   }
+    //   console.log("Sali")
+    //   this.test_service.sendRequest((response) => {
+    //     this.drawWeb(response, trees);
+    //   });
+    // });
+    this.simular()
   }
+
+  simular() {
+    setTimeout(() => {
+      this.cantAnts += 1
+      this.simular()
+    }, 500);
+  }
+
   grass(x2) {
     this.x2 = x2;
 
     return this.x2;
+  }
+
+  aumentar() {
+    this.cantAnts += 1;
   }
 
 

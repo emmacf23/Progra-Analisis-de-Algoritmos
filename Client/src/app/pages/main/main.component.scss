@@ -4,3 +4,14 @@ svg {
     overflow-y: scroll;
     background: linear-gradient(to top, white,rgb(0,162,255),rgb(61,97,255));
 }
+
+#floatText {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: .4rem;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.7);
+}
