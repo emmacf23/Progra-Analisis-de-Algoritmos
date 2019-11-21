@@ -22,9 +22,7 @@ def _mutar(pFather, pGeneSet, pTime, pTrees):
             geneChild[index] = alterno
         else:
             geneChild[index] = newG
-        # geneChild.append(newGene)
     genes = geneChild
-    ##Cambiar Velocidad
     result = AntAdmin.evaluate(pTrees, genes, 1, pTime)
     return Chromosome(genes, result["leaf_count"], result["ant_count"], result["loop"])
 
