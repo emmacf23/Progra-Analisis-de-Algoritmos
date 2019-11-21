@@ -22,15 +22,14 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.test_service.sendRequestTree((trees) => {
+      console.log("ServerData", trees);
       for (var i in trees) {
         this.tree_service.drawTree(trees[i], d3.select('svg'));
       }
       console.log("Sali")
-      this.drawWeb();
-    });
-
-    this.test_service.sendRequest((response) => {
-      console.log(response);
+      this.test_service.sendRequest((response) => {
+        this.drawWeb(response, trees);
+      });
     });
   }
   grass(x2) {
@@ -47,7 +46,7 @@ export class MainComponent implements OnInit {
     return this.cantAnts
   }
 
-  drawWeb() {
+  drawWeb(response, trees) {
     d3.select('svg')
       .append('line')
       .attr('stroke-width', 15)
@@ -104,7 +103,20 @@ export class MainComponent implements OnInit {
       .attr('ry', '25');
 
 
-    for (let i = 0; i <= 30; i++) {
+    let order: Array<any> = [];
+    let treeArray: Array<Number> = [];
+
+
+    for (var orderIndex in response) {
+      order.push(response[orderIndex]);
+    }
+
+
+    for (var treeIndex in trees) {
+      treeArray.push(trees[treeIndex]);
+    }
+
+    for (let ant = 0; ant <= order[0].length; ant++) {
       d3.select('svg')
         .append('rect')
         .attr('fill', 'black')
@@ -115,39 +127,49 @@ export class MainComponent implements OnInit {
     }
 
 
-    var i = 200;
+    let arbol = -1
     d3.selectAll('rect').transition()
       .delay(function (d, i) {
         return 500 * i;
       })
       .on('start', function repeat() {
+        arbol = arbol + 1;
 
-        i = i + 100;
+        let arbolAVisitar = treeArray[order[0][arbol] - 1]["posX"];
+        let arbolHeight = treeArray[order[0][arbol] - 1]["seed"]["l"];
+        let arbolLastHeight = treeArray[order[0][arbol] - 1]["seed"]["l"];
+        let arbolLevels = treeArray[order[0][arbol] - 1]["seed"]["l"];
+        let arbolPercentage = treeArray[order[0][arbol] - 1]["percentage"];
 
-        if (i > 1500) {
-          i = 300;
+
+        for (let level = 1; level < arbolLevels; level++) {
+          arbolLastHeight = arbolLastHeight * arbolPercentage;
+          arbolHeight += arbolLastHeight;
         }
 
-        var j = i / 1500
+        arbolHeight = Math.round(arbolHeight);
+
+        let speedVariable = arbolAVisitar / 1500
+        arbolHeight = arbolHeight / 1500
         d3.active(this)
           // 1 Transition //
-          .duration(6000 * j)
-          .attr('x', i)
+          .duration(10000 * speedVariable)
+          .attr('x', arbolAVisitar)
           .ease(d3.easeLinear)
 
           // 2 Transition //
           .transition()
-          .duration(2000)
+          .duration(10000 * arbolHeight)
           .attr('y', 947)
 
           // 2 Transition //
           .transition()
-          .duration(6000 * j)
+          .duration(10000 * speedVariable)
           .attr('x', 0)
 
           // 1 Transition //
           .transition()
-          .duration(2000)
+          .duration(10000 * arbolHeight)
           .attr('x', 0)
           .attr('y', 846)
           .transition()

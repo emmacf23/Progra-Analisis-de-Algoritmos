@@ -50,7 +50,7 @@ export class TestsService {
 
   request(): Observable<any> {
     return this.http.post<any>('/test/', {
-      time: '10'
+      time: '60'
     }).pipe(
       // catchError(this.handleError('addHero', hero))
     );
