@@ -30,7 +30,7 @@ export class Tree {
 
   private color = d3.scaleLinear()
     .domain([1, this.maxDepth])
-    .range(['black', 'rgb(102, 51, 0)']);
+    .range(['black', 'rgb(0, 255, 0)']);
 
   private leaves = [];
 
@@ -93,7 +93,7 @@ export class Tree {
         .attr('cx', x2(branch))
         .attr('cy', y2(branch))
         .attr('r', '0.5')
-        .attr('fill', 'rgb(255, 0, 255)')
+        .attr('fill', 'rgb(45, 87, 44 )')
       ;
     });
   }

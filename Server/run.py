@@ -26,5 +26,5 @@ def test():
         duration = request.json['time']
         print("Duracion", duration)
         results = reinar(int(duration))
-        return jsonify({'order': results[0]})
+        return jsonify({'order': results[0],'leafCount': results[1]})
     return jsonify({'data': 'Hello World!'})
