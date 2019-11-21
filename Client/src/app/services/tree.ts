@@ -10,12 +10,16 @@ export class Tree {
       private da = 0.18; // Angle delta
       private dl; // Length delta (factor)
       private ar = 0.7; // Randomness
-      private maxDepth = 14;
+      private maxDepth = 0;
+      private length = 0
       
-    constructor(private pBaseLine, private pPercentage, private length, private pMaxDepth) {
-        this.percentage = pPercentage
-        this.seed = { i: 0, x: length, y: 110, a: 0, l: 20, d: 0 }; // a = angle, l = length, d = depth
+    constructor(private posX, private pPercentage, private pLength, private pMaxDepth) {
+//        this.percentage = pPercentage
+        this.percentage = 0.85
+        this.seed = { i: 0, x: posX, y: 110, a: 0, l: pLength, d: 0 }; // a = angle, l = length, d = depth
+        this.length = pLength
         this.baseLine = 800
+        this.maxDepth = pMaxDepth
         
      }
 

@@ -1,6 +1,12 @@
 {
     "/run/*": {
-        "target": "http://localhost:5000/",
+        "target": "http://172.18.40.165:5000/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/test/*": {
+        "target": "http://172.18.40.165:5000/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
